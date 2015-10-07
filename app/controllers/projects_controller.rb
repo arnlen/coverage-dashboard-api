@@ -1,16 +1,10 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :update, :destroy]
+  before_action :set_project, only: :update
 
   # GET /projects
   def index
     @projects = Project.all
-
     render json: @projects
-  end
-
-  # GET /projects/1
-  def show
-    render json: @project
   end
 
   # POST /projects
@@ -31,11 +25,6 @@ class ProjectsController < ApplicationController
     else
       render json: @project.errors, status: :unprocessable_entity
     end
-  end
-
-  # DELETE /projects/1
-  def destroy
-    @project.destroy
   end
 
   private
