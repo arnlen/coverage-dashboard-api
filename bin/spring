@@ -3,6 +3,11 @@
 # This file loads spring without using Bundler, in order to be fast.
 # It gets overwritten when you run the `spring binstub` command.
 
+if ENV['RAILS_ENV'] == 'test'
+  require 'simplecov'
+  SimpleCov.start
+end
+
 unless defined?(Spring)
   require "rubygems"
   require "bundler"

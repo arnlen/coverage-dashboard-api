@@ -106,6 +106,7 @@ GEM
     byebug (6.0.2)
     concurrent-ruby (1.0.0.pre3)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     erubis (2.7.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -152,6 +153,11 @@ GEM
     sass (3.4.18)
     shoulda-matchers (3.0.0)
       activesupport (>= 4.0.0)
+    simplecov (0.10.0)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     spring (1.4.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -173,6 +179,7 @@ DEPENDENCIES
   rspec-rails (~> 3.0)
   sass-rails!
   shoulda-matchers (~> 3.0)
+  simplecov
   spring
   spring-commands-rspec
   sprockets!
