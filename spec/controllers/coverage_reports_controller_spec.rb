@@ -9,7 +9,7 @@ RSpec.describe CoverageReportsController, :type => :controller do
   describe "POST create" do
     context "with valid params" do
       before do
-        allow(CoverageReportsManager).to receive(:new_report).and_return CoverageReport.new(valid_attributes)
+        allow(CoverageReportsManager).to receive(:create_report).and_return CoverageReport.create(valid_attributes)
         post :create, { coverage_report: valid_attributes }, valid_session
       end
       it { expect(response.status).to eq 201 }
@@ -17,7 +17,7 @@ RSpec.describe CoverageReportsController, :type => :controller do
 
     context "with invalid params" do
       before do
-        allow(CoverageReportsManager).to receive(:new_report).and_raise ActionController::ParameterMissing, "project_id"
+        allow(CoverageReportsManager).to receive(:create_report).and_raise ActionController::ParameterMissing, "project_id"
         post :create, { coverage_report: invalid_attributes }, valid_session
       end
       it { expect(response.body).to include "project_id" }

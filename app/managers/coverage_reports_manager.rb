@@ -1,6 +1,6 @@
 class CoverageReportsManager
 
-  def self.new_report coverage_report_params
+  def self.create_report coverage_report_params
   end
 
 end
