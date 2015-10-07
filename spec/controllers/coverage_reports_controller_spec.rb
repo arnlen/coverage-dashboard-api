@@ -2,46 +2,26 @@ require 'rails_helper'
 
 RSpec.describe CoverageReportsController, :type => :controller do
 
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
-
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
-
+  let(:valid_attributes) {{ project_id: 1, percentage: "42" }}
+  let(:invalid_attributes) {{ invalid: "value" }}
   let(:valid_session) { {} }
 
   describe "POST create" do
-    describe "with valid params" do
-      it "creates a new CoverageReport" do
-        expect {
-          post :create, {:coverage_report => valid_attributes}, valid_session
-        }.to change(CoverageReport, :count).by(1)
+    context "with valid params" do
+      before do
+        allow(CoverageReportsManager).to receive(:new_report).and_return CoverageReport.new(valid_attributes)
+        post :create, { coverage_report: valid_attributes }, valid_session
       end
-
-      it "assigns a newly created coverage_report as @coverage_report" do
-        post :create, {:coverage_report => valid_attributes}, valid_session
-        expect(assigns(:coverage_report)).to be_a(CoverageReport)
-        expect(assigns(:coverage_report)).to be_persisted
-      end
-
-      it "redirects to the created coverage_report" do
-        post :create, {:coverage_report => valid_attributes}, valid_session
-        expect(response).to redirect_to(CoverageReport.last)
-      end
+      it { expect(response.status).to eq 201 }
     end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved coverage_report as @coverage_report" do
-        post :create, {:coverage_report => invalid_attributes}, valid_session
-        expect(assigns(:coverage_report)).to be_a_new(CoverageReport)
+    context "with invalid params" do
+      before do
+        allow(CoverageReportsManager).to receive(:new_report).and_raise ActionController::ParameterMissing, "project_id"
+        post :create, { coverage_report: invalid_attributes }, valid_session
       end
-
-      it "re-renders the 'new' template" do
-        post :create, {:coverage_report => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
-      end
+      it { expect(response.body).to include "project_id" }
+      it { expect(response.status).to eq 422 }
     end
   end
 
